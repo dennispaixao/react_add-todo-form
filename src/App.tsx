@@ -10,7 +10,7 @@ export const App = () => {
   const [users] = useState<User[]>(usersFromServer);
   const [todos, setTodos] = useState<Todo[]>(todosFromServer);
   const [title, setTitle] = useState<string>('');
-  const [selectedUserId, setSelectedUserId] = useState<string>('0');
+  const [selectedUserId, setSelectedUserId] = useState<number>(0);
   const [formSubmitedError, setFormSubmitedError] = useState<boolean>(false);
   const [userError, setUserError] = useState<boolean>(false);
   const [titleError, setTitleError] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export const App = () => {
       hasError = true;
     }
 
-    if (selectedUserId === '0') {
+    if (selectedUserId === 0) {
       setUserError(true);
       hasError = true;
     }
@@ -59,7 +59,7 @@ export const App = () => {
 
     setTodos([...todos, newTodo]);
     setTitle('');
-    setSelectedUserId('0');
+    setSelectedUserId(0);
     setFormSubmitedError(false);
     setTitleError(false);
     setUserError(false);
@@ -96,13 +96,13 @@ export const App = () => {
             data-cy="userSelect"
             value={selectedUserId}
             onChange={e => {
-              setSelectedUserId(e.target.value);
+              setSelectedUserId(+e.target.value);
               if (userError || formSubmitedError) {
                 setUserError(false);
               }
             }}
             onBlur={() => {
-              if (selectedUserId === '0') {
+              if (selectedUserId === 0) {
                 setUserError(true);
               }
             }}
